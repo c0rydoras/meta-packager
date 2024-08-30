@@ -68,11 +68,11 @@ jobs:
 
       - name: Build
         run: |
-          poetry build -f wheel
+          poetry build -f sdist
 
       - uses: anchore/sbom-action@v0
         with:
-          path: .
+          file: dist/*
           output-file: sbom.spdx
           dependency-snapshot: true
 
