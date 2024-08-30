@@ -86,6 +86,19 @@ jobs:
           subject-path: "dist/*"
           sbom-path: "sbom.spdx"
 
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.19.0
+        with:
+          input: sbom.spdx
+          format: "sarif"
+          output: "results.sarif"
+          github-pat: ${{ inputs.token }}
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'results.sarif'
+
       - name: Attest Provenance
         id: attest
         uses: actions/attest-build-provenance@v1
