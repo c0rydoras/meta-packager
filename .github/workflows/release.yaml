@@ -74,6 +74,7 @@ jobs:
         with:
           path: .
           output-file: sbom.spdx
+          dependency-snapshot: true
 
       # AFAICT this doesn't work, so the SBOM will be attached as an asset when uploading the wheel
       - uses: anchore/sbom-action/publish-sbom@v0
