@@ -5,6 +5,9 @@ pkgver={{ package.version | string }}
 pkgrel={{ package.rel | string }}
 pkgdesc={{ package.description | string}}
 arch=(any)
-depends={{ package.depends | array}}
-optdepends={{ package.opt_depends | array }}
 groups={{ package.groups | array }}
+
+package () {
+  depends={{ package.depends | array }}
+  optdepends={{ package.opt_depends | array }}
+}
