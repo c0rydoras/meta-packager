@@ -67,7 +67,7 @@ jobs:
 
       - name: Build
         run: |
-          poetry build
+          poetry build -f wheel
 
       - name: Attest
         id: attest
@@ -75,8 +75,23 @@ jobs:
         with:
           subject-path: "dist/*"
 
+      - uses: anchore/sbom-action@v0
+        with:
+          file: ./dist/meta_packager-{{ needs.semrel.outputs.version }}-py3-none-any.whl
+          artifact-name: sbom.spdx
+
+      - uses: anchore/sbom-action/publish-sbom@v0
+        with:
+          sbom-artifact-match: ".*\\.spdx$"
+
+      - name: Generate SBOM attestation
+        uses: actions/attest-sbom@v1
+        with:
+          subject-path: "dist/*"
+          sbom-path: "sbom.spdx"
+
       - name: Upload assets
         run: |
-          gh release upload v${{ needs.semrel.outputs.version }}  dist/* ${{ steps.attest.outputs.bundle-path }}
+          gh release upload v${{ needs.semrel.outputs.version }} dist/*
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
