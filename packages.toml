@@ -1,0 +1,13 @@
+[config]
+name = "Arthur Deierlein"
+email = "info@c0rydoras.dev"
+
+[[package]]
+name = "meta-python"
+depends = ["python", "python-poetry", "ruff"]
+description = "essential things for python developement."
+
+[[package]]
+name = "meta-rust"
+depends = ["rustup", "bacon"]
+description = "essential things for rust developement."

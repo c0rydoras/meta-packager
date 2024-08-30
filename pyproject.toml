@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "meta_packager"
+version = "0.0.0"
+description = "Build PKGBUILDS for meta packages"
+authors = ["Arthur Deierlein <info@c0rydoras.dev>"]
+license = "GPL-3.0-or-later"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+jinja2 = "^3.1.2"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.6.3"
+pytest = "^8.3.2"
+mypy = "^1.11.2"
+vulture = "^2.11"
+
+[tool.mypy]
+python_version = "3.11"
+warn_unused_configs = true
+warn_unused_ignores = true
+warn_unreachable = true
+
+[tool.vulture]
+paths = ["meta_packager"]
+min_confidence = 100
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
