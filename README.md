@@ -1,6 +1,8 @@
 # Meta Packager
 
-Some old test project, repurposed for testing github attestations.
+Some old project, repurposed for testing github workflows.
+
+---
 
 Create PKGBUILDs for meta packages.
 
