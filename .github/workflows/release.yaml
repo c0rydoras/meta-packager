@@ -74,8 +74,6 @@ jobs:
         with:
           subject-path: "dist/*"
 
-      - uses: alexellis/upload-assets@0.4.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          asset_paths: "dist/*"
+      - name: Upload assets
+        run: |
+          gh release upload v${{ needs.semrel.outputs.version }}  dist/*

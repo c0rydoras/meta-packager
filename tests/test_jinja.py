@@ -6,7 +6,7 @@ from meta_packager.jinja import array
 
 
 @pytest.mark.parametrize(
-    ("input", "expected", "newlines"),
+    ("items", "expected", "newlines"),
     [
         (["foo"], "('foo')", None),
         (["foo", "bar"], "('foo' 'bar')", None),
