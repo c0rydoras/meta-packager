@@ -72,7 +72,7 @@ jobs:
 
       - uses: anchore/sbom-action@v0
         with:
-          file: dist/*
+          file: dist/meta_packager-${{ needs.semrel.outputs.version }}.tar.gz
           output-file: sbom.spdx
           dependency-snapshot: true
 
