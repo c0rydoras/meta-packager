@@ -70,12 +70,13 @@ jobs:
           poetry build
 
       - name: Attest
+        id: attest
         uses: actions/attest-build-provenance@v1
         with:
           subject-path: "dist/*"
 
       - name: Upload assets
         run: |
-          gh release upload v${{ needs.semrel.outputs.version }}  dist/*
+          gh release upload v${{ needs.semrel.outputs.version }}  dist/* ${{ steps.attest.output.bundle-path }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
