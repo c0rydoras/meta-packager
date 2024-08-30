@@ -77,3 +77,5 @@ jobs:
       - name: Upload assets
         run: |
           gh release upload v${{ needs.semrel.outputs.version }}  dist/*
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
