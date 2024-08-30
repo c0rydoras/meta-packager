@@ -41,7 +41,7 @@ jobs:
     needs: semrel
     if: needs.semrel.outputs.version != ''
     permissions:
-      actions: none
+      actions: read
       attestations: write
       checks: none
       contents: write
@@ -70,12 +70,6 @@ jobs:
         run: |
           poetry build -f wheel
 
-      - name: Attest
-        id: attest
-        uses: actions/attest-build-provenance@v1
-        with:
-          subject-path: "dist/*"
-
       - uses: anchore/sbom-action@v0
         with:
           file: ./dist/meta_packager-${{ needs.semrel.outputs.version }}-py3-none-any.whl
@@ -91,6 +85,12 @@ jobs:
         with:
           subject-path: "dist/*"
           sbom-path: "sbom.spdx"
+
+      - name: Attest Provenance
+        id: attest
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-path: "dist/*"
 
       - name: Upload assets
         run: |
