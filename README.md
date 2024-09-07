@@ -1,6 +1,6 @@
 # Meta Packager
 
-Some old project, repurposed for testing github workflows.
+Some old project, repurposed for testing things.
 
 ---
 
