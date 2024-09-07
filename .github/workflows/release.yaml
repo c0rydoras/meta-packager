@@ -68,24 +68,7 @@ jobs:
 
       - name: Build
         run: |
-          poetry build -f sdist
-
-      - uses: anchore/sbom-action@v0
-        with:
-          file: dist/meta_packager-${{ needs.semrel.outputs.version }}.tar.gz
-          output-file: sbom.spdx
-          dependency-snapshot: true
-
-      # AFAICT this doesn't work, so the SBOM will be attached as an asset when uploading the wheel
-      - uses: anchore/sbom-action/publish-sbom@v0
-        with:
-          sbom-artifact-match: ".*\\.spdx$"
-
-      - name: Generate SBOM attestation
-        uses: actions/attest-sbom@v1
-        with:
-          subject-path: "dist/*"
-          sbom-path: "sbom.spdx"
+          poetry build
 
       - name: Attest Provenance
         id: attest
@@ -95,6 +78,6 @@ jobs:
 
       - name: Upload assets
         run: |
-          gh release upload v${{ needs.semrel.outputs.version }} dist/* sbom.spdx
+          gh release upload v${{ needs.semrel.outputs.version }} dist/*
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
